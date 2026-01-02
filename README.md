@@ -37,7 +37,7 @@ A Python framework for machine learning-driven investment target forecasting usi
 ### Requirements
 - Python 3.11+ recommended
 - Dependencies managed via `pyproject.toml`
-"""
+
 # IBAML: Investment Target Forecasting with IBA + XGBoost
 
 > Experimental research code — not financial advice.
