@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this code or methodology, please cite it as follows."
+authors:
+  - family-names: Radosavčević
+    given-names: Aleksa
+title: "Investment target forecasting using Interpolative Boolean Algebra + XGBoost"
+version: 0.3.1
+date-released: 2026-01-02
+url: https://github.com/aleksa-r/ibaml

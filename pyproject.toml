@@ -1,0 +1,76 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ibaml"
+version = "0.3.1"
+description = "Investment target forecasting using Interpolative Boolean Algebra + XGBoost (CPU-first)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Aleksa Radosavčević", email = "aleksaradosavcevic@gmail.com" }]
+keywords = ["iba", "feature-reduction", "machine-learning", "xgboost", "ml-investing", "time-series"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.22",
+  "optuna>=3.0",
+  "pandas>=1.5",
+  "pydantic>=2.0",
+  "pyyaml>=6.0",
+  "scikit-learn>=1.2",
+  "scipy>=1.10",
+  "shap>=0.41.0",
+  "xgboost>=2.0.0",
+  "joblib>=1.3",
+  "tqdm>=4.65",
+  "matplotlib>=3.6",
+  "psutil>=5.9"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.3",
+  "pytest-cov>=4.0",
+  "coverage>=6.5",
+  "pytest-xdist>=2.5",
+  "ruff>=0.4.0",
+  "black>=23.0",
+  "mypy>=1.4",
+  "pre-commit>=2.20",
+]
+
+[project.scripts]
+ibaml = "ibaml.cli:main"
+ibaml-benchmark = "ibaml.benchmark:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ibaml*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E","F","I","UP","B","C90"]
+ignore = ["E501"]
+exclude = ["build","dist",".venv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[project.urls]
+Repository = "https://github.com/aleksa-r/ibaml"
