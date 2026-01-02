@@ -106,7 +106,7 @@ Recommended BibTeX:
 
 ```bibtex
 @misc{radosavcevic2026investment,
-	author = {Aleksa Radosav\u0107evi\u0107},
+	author = {Aleksa Radosavčević},
 	title = {Investment target forecasting using Interpolative Boolean Algebra + XGBoost},
 	year = {2026},
 	howpublished = {GitHub repository},
