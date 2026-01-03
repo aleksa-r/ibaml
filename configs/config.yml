@@ -1,50 +1,48 @@
 dataset:
-  factors_path: data/raw_factors.csv
-  targets_path: data/raw_targets.csv
+  factors_path: data/example_factors.csv
+  targets_path: data/example_targets.csv
   date_column: Date
-  target_columns: [CTA, CA, DS, ELS, EMN, EDMS, FIA, GM]
+  target_columns: [TGT_A, TGT_B]
   parse_dates: true
-  zscore_windows: [6, 12]
-  cumulative_horizon: 3
-  forecast_shift: 3 
-  align_freq: "M" 
+  zscore_windows: [3, 6]
+  cumulative_horizon: 1
+  forecast_shift: 1
+  align_freq: "M"
   align_agg: "last"
   align_how: "end"
 
 factors:
-  IR: [T1YFF_CHG, T10Y2Y_CHG, TB3MS_CHG, T5YFF_CHG] 
-  B:  [BAMLEMCBPIEY_CHG, BAMLHE00EHYIEY_CHG, BAMLC0A1CAAAEY_CHG, BAMLH0A2HYBEY_CHG]
-  V:  [VIXCLS, EMVCOMMMKT, EMVFINCRISES, EMVMACRORE] 
-  AP: [Mkt_RF, SMB, HML, MSCIEM] 
-  TF: [PTFSBD, PTFSCOM, PTFSIR, PTFSSTK]
+  G1: [F_A1, F_A2, F_A3]
+  G2: [F_B1, F_B2]
 
 splits:
-  init_tran_size: 0.7
-  folds_val_set_size: 18
-  folds_steps_size: 10
-  num_of_folds: 5
+  init_tran_size: 0.6
+  folds_val_set_size: 6
+  folds_steps_size: 3
+  num_of_folds: 3
   allow_dynamic_adjustment: true
 
 objective:
-  kind: paper               
-  lambda1: 0.7              
-  lambda2: 0.2         
-  lambda3: 0.1          
-  quantile_delta: 0.1 
-  quantile_gamma: 0.9   
-  target_overrides:
+  kind: mse
+  lambda1: 0.0
+  lambda2: 0.0
+  lambda3: 0.0
+  quantile_delta: 0.1
+  quantile_gamma: 0.9
+  target_overrides: {}
+
 search:
-  top_k: 1               
-  limit_mask_size: null     
-  min_groups_in_combo: 1    
-  max_groups_in_combo: null  
-  allow_empty_groups: true   
+  top_k: 1
+  limit_mask_size: null
+  min_groups_in_combo: 1
+  max_groups_in_combo: null
+  allow_empty_groups: true
 
 xgb:
   params:
-    n_estimators: 500
-    max_depth: 6
-    learning_rate: 0.05
+    n_estimators: 50
+    max_depth: 4
+    learning_rate: 0.1
     subsample: 0.8
     colsample_bytree: 0.8
     tree_method: hist
@@ -52,48 +50,24 @@ xgb:
     random_state: 42
 
 hyperopt:
-  enabled: true              
-  n_trials: 50               
-  timeout: 500               
-  n_jobs: 1                  
-  sampler: tpe         
-  pruner: median          
-  cv_folds: 5       
-  min_train_ratio: 0.7   
-  scale_iba_features: false 
-  search_space:
-    max_depth:
-      type: int
-      low: 3
-      high: 8
-      choices: [3, 4, 5, 6, 7, 8]
-      step: 1
-    learning_rate:
-      type: log_float
-      low: 0.01
-      high: 0.1
-      choices: [0.01, 0.02, 0.05, 0.1]
-      step: null
-    n_estimators:
-      type: int
-      low: 300
-      high: 800
-      choices: [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800]
-      step: 50
-    subsample:
-      type: float
-      low: 0.6
-      high: 0.95
-      choices: [0.6, 0.7, 0.8, 0.9, 0.95]
-      step: null
+  enabled: false
+  n_trials: 10
+  timeout: 120
+  n_jobs: 1
+  sampler: tpe
+  pruner: none
+  cv_folds: 3
+  min_train_ratio: 0.6
+  scale_iba_features: false
+  search_space: {}
 
 simulation:
-  enabled: true
-  gate: zero                
-  slippage_bps: 0.0          
-  fees_bps: 0.0         
+  enabled: false
+  gate: zero
+  slippage_bps: 0.0
+  fees_bps: 0.0
 
 evaluation:
-  retrain: true              
-  steps: 3               
-  size: 18        
+  retrain: false
+  steps: 1
+  size: 6
