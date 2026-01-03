@@ -77,7 +77,13 @@ Usage
 Run the main pipeline:
 
 ```bash
-PYTHONPATH=src python -m ibaml.cli configs/config.yml --outdir artifacts --log-level INFO --html
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export XGBOOST_NUM_THREADS=1
+
+PYTHONPATH=src python -m ibaml.cli configs/config.yml --outdir artifacts --n-jobs-targets 8 --n-jobs-masks 4 --n-jobs-combos 2 --top-k 1 --log-level INFO --html
 ```
 
 Benchmarks / hyperopt:
